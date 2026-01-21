@@ -89,11 +89,6 @@ class Migration(migrations.Migration):
     operations = [
         # Run Python code to conditionally rename table
         migrations.RunPython(rename_table_if_exists, migrations.RunPython.noop),
-        # Set the model's table name (no-op if already renamed, creates new if fresh install)
-        migrations.AlterModelTable(
-            name="blueprint",
-            table="indy_hub_indyblueprint",
-        ),
         migrations.AddField(
             model_name="blueprint",
             name="bp_type",
