@@ -1,0 +1,40 @@
+{
+    "name": "@erkaek/indy-hub",
+    "version": "1.13.0",
+    "description": "Alliance Auth industry dashboard with blueprints, production simulations, and tooling for EVE Online corporations.",
+    "license": "MIT",
+    "author": "erka Ekanon",
+    "homepage": "https://github.com/Erkaek/aa-Indy_Hub#readme",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Erkaek/aa-Indy_Hub.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Erkaek/aa-Indy_Hub/issues"
+    },
+    "type": "commonjs",
+    "main": "eslint.config.js",
+    "scripts": {
+        "lint": "npm run lint:js && npm run lint:css",
+        "lint:js": "eslint \"indy_hub/static/indy_hub/js/**/*.js\"",
+        "lint:js:fix": "npm run lint:js -- --fix",
+        "lint:css": "stylelint \"indy_hub/static/indy_hub/css/**/*.css\"",
+        "lint:css:fix": "npm run lint:css -- --fix",
+        "test": "npm run lint"
+    },
+    "keywords": [
+        "allianceauth",
+        "eve-online",
+        "django",
+        "plugin"
+    ],
+    "engines": {
+        "node": ">=18.18"
+    },
+    "devDependencies": {
+        "eslint": "^9.26.0",
+        "globals": "^16.2.0",
+        "stylelint": "^16.19.1",
+        "stylelint-config-standard": "^38.0.0"
+    }
+}

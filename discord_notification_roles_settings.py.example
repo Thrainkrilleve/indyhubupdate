@@ -1,0 +1,139 @@
+# Example Settings for Discord Role-Based Notifications
+# Add these to your local.py file in Alliance Auth
+
+# ============================================================================
+# Discord Role-Based Notifications
+# ============================================================================
+# Configure which Discord roles receive Indy Hub notifications
+# Following the pattern from: https://github.com/BlackhawkGT/auth-scripts
+#
+# How to get role IDs:
+# 1. Enable Developer Mode in Discord (Settings → Advanced → Developer Mode)
+# 2. Right-click a role in your server → Copy ID
+#
+# If this setting is not defined or empty, ALL users receive notifications.
+# If defined, ONLY users with these Discord roles receive notifications.
+# ============================================================================
+
+# Example 1: Single Role
+INDY_HUB_DISCORD_NOTIFICATION_ROLES = {
+    "1234567890123456789": {
+        "name": "Industry Team",
+        "enabled": True,
+    },
+}
+
+# Example 2: Multiple Roles (users with ANY of these roles get notifications)
+INDY_HUB_DISCORD_NOTIFICATION_ROLES = {
+    "1234567890123456789": {
+        "name": "Industry Team",
+        "enabled": True,
+    },
+    "9876543210987654321": {
+        "name": "Leadership",
+        "enabled": True,
+    },
+    "5555555555555555555": {
+        "name": "Manufacturers",
+        "enabled": True,
+    },
+}
+
+# Example 3: Temporarily Disable a Role
+INDY_HUB_DISCORD_NOTIFICATION_ROLES = {
+    "1234567890123456789": {
+        "name": "Industry Team",
+        "enabled": True,
+    },
+    "9876543210987654321": {
+        "name": "Leadership",
+        "enabled": False,  # Temporarily disabled for testing
+    },
+}
+
+# Example 4: No Role Filtering (comment out or remove the setting)
+# INDY_HUB_DISCORD_NOTIFICATION_ROLES = {}  # All users receive notifications
+
+
+# ============================================================================
+# Other Discord Settings (existing Indy Hub settings)
+# ============================================================================
+
+# Enable/disable Discord direct messages (default: True)
+INDY_HUB_DISCORD_DM_ENABLED = True
+
+# Footer text in Discord embeds (default: "Alliance Auth")
+INDY_HUB_DISCORD_FOOTER_TEXT = "Your Alliance Name"
+
+# How long Discord action links are valid in seconds (default: 72 hours)
+INDY_HUB_DISCORD_ACTION_TOKEN_MAX_AGE = 72 * 60 * 60
+
+# Discord Guild (Server) ID - Required for role checking
+# Right-click your server icon → Copy ID
+DISCORD_GUILD_ID = 123456789012345678
+
+
+# ============================================================================
+# Management Commands
+# ============================================================================
+# Use these commands to manage notification roles:
+#
+# List configured roles:
+#   python manage.py manage_discord_notification_roles list
+#
+# Add a new role:
+#   python manage.py manage_discord_notification_roles add \
+#       --role-id 1234567890123456789 \
+#       --role-name "Industry Team"
+#
+# Remove a role:
+#   python manage.py manage_discord_notification_roles remove \
+#       --role-id 1234567890123456789
+#
+# Clear all roles:
+#   python manage.py manage_discord_notification_roles clear
+#
+# The management command will generate the correct settings snippet for you!
+# ============================================================================
+
+
+# ============================================================================
+# Docker Volume Mount (Optional)
+# ============================================================================
+# If you're using Docker, you can mount this file:
+#
+# In docker-compose.yml, add to volumes:
+#   - ./conf/local.py:/home/allianceauth/myauth/myauth/settings/local.py
+#
+# Then restart:
+#   docker compose restart
+# ============================================================================
+
+
+# ============================================================================
+# Troubleshooting
+# ============================================================================
+# Enable debug logging for Discord role checking:
+#
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'indy_hub.utils.discord_roles': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#             'propagate': False,
+#         },
+#         'indy_hub.notifications': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#             'propagate': False,
+#         },
+#     },
+# }
+# ============================================================================
