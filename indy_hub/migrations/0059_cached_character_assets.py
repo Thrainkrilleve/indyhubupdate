@@ -52,6 +52,7 @@ class Migration(migrations.Migration):
             options={
                 "verbose_name": "Cached Character Asset",
                 "verbose_name_plural": "Cached Character Assets",
+                "db_table": "indy_hub_char_assets",
             },
         ),
         migrations.AddIndex(

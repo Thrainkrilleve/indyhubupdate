@@ -45,6 +45,7 @@ class Migration(migrations.Migration):
             options={
                 "verbose_name": "Cached Corporation Asset",
                 "verbose_name_plural": "Cached Corporation Assets",
+                "db_table": "indy_hub_corp_assets",
                 "indexes": [
                     models.Index(
                         fields=["corporation_id", "location_id"],

@@ -63,6 +63,23 @@ def populate_bp_type(apps, schema_editor):
         Blueprint.objects.bulk_update(to_update, ["bp_type"])
 
 
+def rename_table_if_exists(apps, schema_editor):
+    """Rename table only if old name exists (for upgrades from old versions)"""
+    from django.db import connection
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT COUNT(*) 
+            FROM information_schema.tables 
+            WHERE table_schema = DATABASE() 
+            AND table_name = 'indy_hub_blueprint'
+        """)
+        old_table_exists = cursor.fetchone()[0] > 0
+        
+        if old_table_exists:
+            # Old table exists, rename it
+            cursor.execute("RENAME TABLE indy_hub_blueprint TO indy_hub_indyblueprint")
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -70,6 +87,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        # Run Python code to conditionally rename table
+        migrations.RunPython(rename_table_if_exists, migrations.RunPython.noop),
+        # Set the model's table name (no-op if already renamed, creates new if fresh install)
         migrations.AlterModelTable(
             name="blueprint",
             table="indy_hub_indyblueprint",
